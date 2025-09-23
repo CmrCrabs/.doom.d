@@ -1,46 +1,58 @@
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+;; sync N
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
+(setq user-full-name "Zayaan Azam"
+      user-mail-address "zf.azam@proton.me")
+
+(setq display-line-numbers-type 'relative)
+(setq org-directory "~/pkms/")
+
+(blink-cursor-mode 1)
+(setq which-key-idle-delay 0.0)
 
 
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets. It is optional.
-;; (setq user-full-name "John Doe"
-;;       user-mail-address "john@doe.com")
+(setq doom-theme 'kanagawa-dragon)
+(after! doom-themes
+  (unless (display-graphic-p)
+    (set-face-background 'default "undefined")))
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom:
-;;
-;; - `doom-font' -- the primary font to use
-;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
-;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;; - `doom-symbol-font' -- for symbols
-;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
-;;
-;; See 'C-h v doom-font' for documentation and more examples of what they
-;; accept. For example:
-;;
-;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
-;;
-;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
-;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
-;; refresh your font settings. If Emacs still can't find your font, it likely
-;; wasn't installed correctly. Font issues are rarely Doom issues!
+(setq doom-modeline-icon t)
+(setq doom-modeline-major-mode-icon t)
+(setq doom-modeline-lsp-icon t)
+(setq doom-modeline-major-mode-color-icon t)
 
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
 
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(defun banner-of-doom ()
+  (let* ((banner '("                 _..--+~/@-~--.                         "
+                   "             _-=~      (  .   \"}                       "
+                   "          _-~     _.--=.\\ \\\"\"\"                     "
+                   "        _~      _-       \\ \\_\\                       "
+                   "       =      _=          '--'                          "
+                   "      '      =                             .            "
+                   "     :      :       ____                   '=_. ___     "
+                   "___  |      ;                            ____ '~--.~.   "
+                   "     ;      ;                               _____  } |  "
+                   "  ___=       \\ ___ __     __..-...__           ___/__/_"
+                   "     :        =_     _.-~~          ~~--.__             "
+                   "_____ \\         ~-+-~                   ___~=_______   "
+                   "     ~@#~~ == ...______ __ ___ _--~~--_                 "
+                   "                                                        "
+                   "                      e m a c s                        "))
+         (longest-line (apply #'max (mapcar #'length banner))))
+    (put-text-property
+     (point)
+     (dolist (line banner (point))
+       (insert (+doom-dashboard--center
+                +doom-dashboard--width
+                (concat line (make-string (max 0 (- longest-line (length line))) 32)))
+               "\n"))
+     'face 'doom-dashboard-banner)))
+
+(setq +doom-dashboard-ascii-banner-fn #'banner-of-doom)
+
+(add-hook! '+doom-dashboard-functions :append
+  (insert "\n" (+doom-dashboard--center +doom-dashboard--width "Nah, I'd win.")))
+
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
