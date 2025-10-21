@@ -97,9 +97,9 @@
 
        :os
        (:if (featurep :system 'macos) macos)  ; improve compatibility with macOS
-       ;;tty               ; improve the terminal Emacs experience
+       tty               ; improve the terminal Emacs experience
 
-       ;; TODO switch from nvim to emacs + tmua
+       ;; TODO switch from nvim/tmux to emacs
        :lang
        ;;ada               ; In strong typing we (blindly) trust
        ;;agda              ; types of types of types of types...
