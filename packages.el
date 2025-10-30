@@ -5,8 +5,13 @@
 (package! affe)
 (package! kkp)
 (package! org-timeblock)
+(package! aggressive-indent)
 
-;; If you'd like to disable a package included with Doom, you can do so here
-;; with the `:disable' property:
-;; (package! builtin-package :disable t)
+(package! org-roam)
+(package! org-roam-ui)
+(package! anki-editor)
+(package! md-roam :recipe
+  (:host github
+         :repo "nobiot/md-roam"
+         :files ("md-roam.el")))
 
